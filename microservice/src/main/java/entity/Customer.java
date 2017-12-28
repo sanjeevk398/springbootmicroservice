@@ -1,21 +1,27 @@
 package entity;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-//import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 @Table(name = "CUSTOMER")
 @Entity
 @XmlRootElement
-public class Customer implements Serializable, Comparable<Customer> {
+public class Customer {
 	/**
 	 * 
 	 */
@@ -23,59 +29,69 @@ public class Customer implements Serializable, Comparable<Customer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
-	// @Size(max = 5)
-	private Long ID;
-	@Column
+	private Long Id;
+	@Column(length = 20)
 	@NotNull
-	private String name;
-	@Column
+	private String firstName;;
+	@Column(length = 20)
 	@NotNull
-	// @Size(max = 3)
-	private Integer age;
-	@Column
-	@NotNull
-	private String address;
+	private String lastName;
+	@Column(length = 30)
+	@Email(message = "enter valid email")
+	private String email;
+	@Column(length = 10)
+	@NotNull(message = "provide 10 digit moblie number")
+	private Long mobile;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "customer_fk")
+	private List<Order> order = new ArrayList<>();
 
-	public Long getID() {
-		return ID;
+	public List<Order> getOrder() {
+		return order;
 	}
 
-	public void setID(Long iD) {
-		ID = iD;
+	public void setOrder(List<Order> order) {
+		this.order = order;
 	}
 
-	public String getName() {
-		return name;
+	public Long getId() {
+		return Id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(Long id) {
+		Id = id;
 	}
 
-	public Integer getAge() {
-		return age;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	@Override
-	public int compareTo(Customer o) {
-		return 0;
+	public Long getMobile() {
+		return mobile;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [ID=" + ID + ", name=" + name + ", age=" + age + ", address=" + address + "]";
+	public void setMobile(Long mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

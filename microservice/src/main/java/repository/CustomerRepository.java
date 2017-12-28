@@ -8,5 +8,7 @@ import entity.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-	public Customer findByName(String name);
+	public Customer findByFirstName(String name);
+
+	public Customer findByEmail(String email);
 }

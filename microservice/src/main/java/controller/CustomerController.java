@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,41 +50,22 @@ public class CustomerController {
 
 	@RequestMapping("/findbyname/{name}")
 	public Customer getCustomerByName(@PathVariable String name) {
-		return repository.findByName(name);
+		return repository.findByFirstName(name);
 	}
 
-	@RequestMapping("/update/{id}")
-	public String update(@RequestBody Customer customer, @PathVariable Long id) {
-		Customer cust = repository.findOne(id);
-		if (cust != null) {
-			cust.setAddress(customer.getAddress());
-			cust.setAge(customer.getAge());
-			cust.setName(customer.getName());
-			repository.save(cust);
-			return "record updated";
-		} else {
-			repository.save(customer);
-			return "new record added";
-		}
+	@PostMapping("/findbyemail/{email}")
+	public Customer findByEmail(@PathVariable String email) {
+		return repository.findByEmail(email);
 	}
+
 	/*
-	 * @Autowired CustomerService customerService;
-	 * 
-	 * @RequestMapping("/save") public String save() { Customer customer = new
-	 * Customer(); // customer.setID(50); customer.setName("sanjeev");
-	 * customer.setAddress("pune"); customer.setAge(25);
-	 * customerService.save(customer); return "record saved"; }
-	 * 
-	 * @RequestMapping("/retrieveall") public List<Customer> retrieveAll() {
-	 * return customerService.retrieveAll(); }
-	 * 
-	 * @RequestMapping("/retrievesingle") public Customer retrieveById() {
-	 * return customerService.retrieve(2); }
-	 * 
-	 * @RequestMapping("/delete") public String delete() {
-	 * customerService.delete(1); return "record delete having id : " + 1; }
-	 * 
-	 * @RequestMapping("/page") public String dispaly() { return "hello"; }
+	 * @RequestMapping("/update/{id}") public String update(@RequestBody
+	 * Customer customer, @PathVariable Long id) { Customer cust =
+	 * repository.findOne(id); if (cust != null) {
+	 * cust.setAddress(customer.getAddress()); cust.setAge(customer.getAge());
+	 * cust.setName(customer.getName()); repository.save(cust); return
+	 * "record updated"; } else { repository.save(customer); return
+	 * "new record added"; } }
 	 */
 
 }
