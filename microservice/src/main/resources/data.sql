@@ -1,4 +1,4 @@
-insert into customer values(null,'sanjeev.sky@outlook.com', 'sanjeev','kumar', 9637360064);
+insert into customer values(null,'sanjeev.sky@outlook.com', 'sanjeev','kumar', 9638760064);
 insert into customer values(null,'ashish.mishra@outlook.com', 'ashish','ashish', 9687360064);
 insert into customer values(null,'vaishali.taneja@outlook.com', 'vaishali','taneja', 9637365864);
 
